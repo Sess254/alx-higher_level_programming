@@ -74,8 +74,15 @@ class Rectangle(Base):
 
     def display(self):
         """Prints the Rectangle using #"""
-        for _ in range(self.__height):
-            print("#" * self.__width)
+        if self.width == 0 or self.height == 0:
+            print("")
+            return
+
+        [print("") for y in range(self.y)]
+        for he in range(self.height):
+            [print(" ", end="") for x in range(self.x)]
+            [print("#", end="") for wd in range(self.width)]
+            print("")
 
     def __str__(self):
         """Returns the print and str rep of the rectangle"""
