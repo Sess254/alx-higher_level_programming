@@ -60,3 +60,12 @@ class Square(Rectangle):
                     self.x = a
                 elif k == "y":
                     self.y = a
+
+    def to_dictionary(self):
+        """Dictionary rep of a Square"""
+        return {
+            "id": self.id,
+            "size": self.width,
+            "x": self.x,
+            "y": self.y
+        }
