@@ -51,3 +51,14 @@ class Base:
                 ins = cls(1)
             ins.update(**dictionary)
             return ins
+
+    @classmethod
+    def load_from_file(cls):
+        """Returns a list of instances"""
+        filename = str(cls.__name__) + ".json"
+        try:
+            with open(filename, "r") as jsonfile:
+                list_dict = Base.from_json_string(jsonfile.read())
+                return [cls.create(**dic) for dic in list_dict]
+        except IOError:
+            return []
