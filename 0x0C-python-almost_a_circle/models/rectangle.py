@@ -90,17 +90,40 @@ class Rectangle(Base):
                                                        self.x, self.y,
                                                        self.width, self.height)
 
-    def update(self, *args):
+    def update(self, *args, **kwargs):
         """Updates the rectangle with arg 1-5 to rep
            id, width, height, x and y respectively
         """
-        if len(args) >= 1:
-            self.id = args[0]
-        if len(args) >= 2:
-            self.width = args[1]
-        if len(args) >= 3:
-            self.height = args[2]
-        if len(args) >= 4:
-            self.x = args[3]
-        if len(args) >= 5:
-            self.y = args[4]
+        if args and len(args) != 0:
+            c = 0
+            for arg in args:
+                if c == 0:
+                    if arg is None:
+                        self.__init__(self.width, self.height, self.x, self.y)
+                    else:
+                        self.id = arg
+                elif c == 1:
+                    self.width = arg
+                elif c == 2:
+                    self.height = arg
+                elif c == 3:
+                    self.x = arg
+                elif c == 4:
+                    self.y = arg
+                c += 1
+
+        elif kwargs and len(kwargs) != 0:
+            for k, a in kwargs.items():
+                if k == "id":
+                    if a is None:
+                        self.__init__(self.width, self.height, self.x, self.y)
+                    else:
+                        self.id = a
+                elif k == "width":
+                    self.width = a
+                elif k == "height":
+                    self.height = a
+                elif k == "x":
+                    self.x = a
+                elif k == "y":
+                    self.y = a
