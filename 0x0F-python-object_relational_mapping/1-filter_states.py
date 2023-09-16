@@ -8,7 +8,11 @@ if __name__ == '__main__':
                          db=sys.argv[3], port=3306)
 
     curs = db.cursor()
-    curs.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC;")
+    curs.execute("SELECT * \
+    FROM states \
+    WHERE CONVERT(name USING Latin1) \
+    COLLATE Latin1_General_CS \
+    LIKE 'N%';")
     states = curs.fetchall()
 
     for state in states:
