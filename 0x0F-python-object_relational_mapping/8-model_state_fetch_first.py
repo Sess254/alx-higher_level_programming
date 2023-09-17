@@ -18,4 +18,5 @@ if __name__ == '__main__':
 
     states = session.query(State).order_by(State.id).first()
 
-    print("Nothing" if not state else "{}: {}".format(state.id, state.name))
+    for state in states:
+        print("{}: {}".format(state.id, state.name))
