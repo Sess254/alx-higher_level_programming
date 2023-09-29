@@ -1,0 +1,14 @@
+#!/usr/bin/python3
+"""
+Python script that takes in a URL,
+sends a request to the URL and displays the body of the response
+"""
+import sys
+import requests
+
+
+if __name__ == "__main__":
+    r = requests.get(sys.argv[1])
+    status = r.status_code
+    print(r.text) if status < 400 else print(
+        "Error code: {}".format(r.status_code))
