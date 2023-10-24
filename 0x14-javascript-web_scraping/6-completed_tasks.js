@@ -2,26 +2,26 @@
 // Script that computes the number of tasks completed by user id
 
 const request = require('request');
+const url = process.argv[2];
 
-const apiUrl = 'https://jsonplaceholder.typicode.com/todos';
-
-request(apiUrl, (error, response, body) => {
-  if (error || response.statusCode !== 200) {
-    console.error(`Request failed with status code ${response ? response.statusCode : 'unknown'}`);
-  } else {
-    const todos = JSON.parse(body);
-
-    const completedTasksByUser = todos.reduce((result, task) => {
-      if (task.completed) {
-        if (!result[task.userId]) {
-          result[task.userId] = 1;
+request(url, function (err, response, body) {
+  if (err) {
+    console.log(err);
+  } else if (response.statusCode === 200) {
+    const completed = {};
+    const tasks = JSON.parse(body);
+    for (const i in tasks) {
+      const task = tasks[i];
+      if (task.completed === true) {
+        if (completed[task.userId] === undefined) {
+          completed[task.userId] = 1;
         } else {
-          result[task.userId]++;
+          completed[task.userId]++;
         }
       }
-      return result;
-    }, {});
-
-    console.log(completedTasksByUser);
+    }
+    console.log(completed);
+  } else {
+    console.log('An error occured. Status code: ' + response.statusCode);
   }
 });
